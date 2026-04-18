@@ -14,7 +14,7 @@ pip install -r requirements.txt
 ## Setup Environment - Shell/Terminal
 
 ```
-git clone <https://github.com/jibrantsqf/bike-sharing-dashboard.git>
+git clone https://github.com/jibrantsqf/bike-sharing-dashboard.git
 cd bike-sharing-dashboard
 pipenv install
 pipenv shell
