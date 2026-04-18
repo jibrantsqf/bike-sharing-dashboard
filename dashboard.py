@@ -71,7 +71,8 @@ else:
     st.markdown("---")
 
     # Grafik 1: Pengaruh Musim dan Kondisi Cuaca
-    st.subheader("Pengaruh Musim dan Kondisi Cuaca")
+    st.subheader("Analisis Pengaruh Musim dan Cuaca")
+    st.write("Visualisasi di bawah ini menjawab **Pertanyaan Bisnis 1**: *Bagaimana pengaruh kondisi cuaca dan musim terhadap total penyewaan sepeda harian selama periode tahun 2011-2012?*")
     
     col_a, col_b = st.columns(2)
     
@@ -79,7 +80,7 @@ else:
         fig1a, ax1a = plt.subplots(figsize=(10, 6))
         season_rent = main_day_df.groupby('season')['total_count'].mean().reset_index()
         sns.barplot(x="season", y="total_count", data=season_rent.sort_values(by="total_count", ascending=False), color="steelblue", ax=ax1a)
-        ax1a.set_title("Rata-rata Penyewaan Berdasarkan Musim", fontsize=20)
+        ax1a.set_title("Rata-rata Penyewaan per Musim (2011-2012)", fontsize=18)
         ax1a.set_xlabel(None)
         ax1a.set_ylabel("Rata-rata Penyewaan", fontsize=15)
         ax1a.set_ylim(0, 6000)
@@ -89,15 +90,16 @@ else:
         fig1b, ax1b = plt.subplots(figsize=(10, 6))
         weather_rent = main_day_df.groupby('weather')['total_count'].mean().reset_index()
         sns.barplot(x="weather", y="total_count", data=weather_rent.sort_values(by="total_count", ascending=False), color="steelblue", ax=ax1b)
-        ax1b.set_title("Rata-rata Penyewaan Berdasarkan Cuaca", fontsize=20)
+        ax1b.set_title("Rata-rata Penyewaan per Cuaca (2011-2012)", fontsize=18)
         ax1b.set_xlabel(None)
         ax1b.set_ylabel(None)
         st.pyplot(fig1b)
     
     st.markdown("---")
     
-    # grafik 2: Analisis Tren Penyewaan per Jam
+    # Grafik 2: Analisis Tren Penyewaan per Jam
     st.subheader("Analisis Tren Penyewaan per Jam")
+    st.write("Visualisasi di bawah ini menjawab **Pertanyaan Bisnis 2**: *Bagaimana pola penyewaan sepeda berdasarkan jam, dan bagaimana perbedaan tren antara pelanggan casual dan registered selama periode tahun 2011-2012?*")
     
     hourly_rent = main_hour_df.groupby('hour')[['total_count', 'casual', 'registered']].mean().reset_index()
     
@@ -106,7 +108,7 @@ else:
     with col_c:
         fig2a, ax2a = plt.subplots(figsize=(10, 6))
         sns.lineplot(x='hour', y='total_count', data=hourly_rent, marker='o', color='tab:blue', linewidth=3, ax=ax2a)
-        ax2a.set_title("Total Penyewaan per Jam", fontsize=20)
+        ax2a.set_title("Total Penyewaan per Jam (2011-2012)", fontsize=18)
         ax2a.set_xlabel("Jam", fontsize=15)
         ax2a.set_ylabel("Rata-rata Penyewaan", fontsize=15)
         ax2a.set_xticks(range(0, 24))
@@ -118,7 +120,7 @@ else:
         fig2b, ax2b = plt.subplots(figsize=(10, 6))
         sns.lineplot(x='hour', y='registered', data=hourly_rent, marker='o', color='tab:orange', label='Registered', linewidth=3, ax=ax2b)
         sns.lineplot(x='hour', y='casual', data=hourly_rent, marker='o', color='tab:green', label='Casual', linewidth=3, ax=ax2b)
-        ax2b.set_title("Casual vs Registered per Jam", fontsize=20)
+        ax2b.set_title("Casual vs Registered per Jam (2011-2012)", fontsize=18)
         ax2b.set_xlabel("Jam", fontsize=15)
         ax2b.set_ylabel(None)
         ax2b.set_xticks(range(0, 24))
@@ -126,7 +128,7 @@ else:
         ax2b.legend(fontsize=12)
         st.pyplot(fig2b)
     
-    # grafik 3: Clustering berdasarkan Kategori Waktu
+    # Grafik 3: Clustering berdasarkan Kategori Waktu
     st.markdown("---")
     st.subheader("Clustering: Kategori Waktu Teramai")
 
@@ -136,9 +138,17 @@ else:
     
     fig3, ax3 = plt.subplots(figsize=(12, 6))
     sns.barplot(x='time_category', y='total_count', data=time_category_df, color="steelblue", ax=ax3)
-    ax3.set_title("Rata-rata Penyewaan Berdasarkan Kategori Waktu", fontsize=20)
+    ax3.set_title("Rata-rata Penyewaan per Kategori Waktu (2011-2012)", fontsize=18)
     ax3.set_xlabel(None)
     ax3.set_ylabel("Rata-rata Penyewaan", fontsize=15)
     st.pyplot(fig3)
+
+    # Tambahan Kesimpulan Akhir
+    st.markdown("---")
+    st.subheader("Kesimpulan Akhir")
+    st.write("""
+    - **Menjawab Pertanyaan 1:** Kondisi cuaca cerah dan musim gugur (*Fall*) terbukti menjadi faktor pendorong tertinggi bagi minat masyarakat dalam menyewa sepeda selama rentang waktu 2011-2012. Cuaca buruk secara drastis menurunkan angka penyewaan.
+    - **Menjawab Pertanyaan 2:** Terdapat pola perilaku yang sangat berbeda. Selama periode 2011-2012, pelanggan *Registered* menunjukkan pola komuter yang sangat jelas dengan lonjakan tajam pada jam berangkat kerja (08:00) dan pulang kerja (17:00-18:00). Sebaliknya, pelanggan *Casual* lebih dominan menggunakan sepeda untuk bersantai di tengah hari (10:00-16:00).
+    """)
 
 st.caption("Dicoding Data Analysis Project - Jibran Tsaqif")
