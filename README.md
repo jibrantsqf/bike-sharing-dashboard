@@ -11,7 +11,7 @@ conda activate main-ds
 pip install -r requirements.txt
 ```
 
-## Setup Environment - Shell/Terminal
+## Setup Environment - Shell/Terminal (Windows)
 
 ```
 git clone https://github.com/jibrantsqf/bike-sharing-dashboard.git
